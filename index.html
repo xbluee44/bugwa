@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHADOW DEATH - ALL IN ONE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --neon-lime: #a3ff00; --neon-pink: #ff2d55; --bg-dark: #050505; }
+        body { background: var(--bg-dark); color: white; font-family: 'Rajdhani', sans-serif; margin: 0; overflow-x: hidden; }
+        
+        /* Navigasi Halaman */
+        .page { display: none; min-height: 100vh; padding: 20px; padding-bottom: 110px; }
+        .page.active { display: block; }
+
+        /* Login/Gateway Style */
+        .main-card { background: linear-gradient(145deg, #0f120a, #070905); border: 1px solid rgba(163, 255, 0, 0.15); border-radius: 40px; width: 350px; padding: 40px 25px; text-align: center; margin: 40px auto; }
+        .video-box { background: black; height: 100px; margin: 25px 0; transform: skewY(-5deg); border-radius: 15px; overflow: hidden; border: 1px solid #1a2214; }
+        input { width: 100%; background: #000; border: 1px solid #1a2214; border-radius: 15px; padding: 14px; margin-bottom: 12px; color: var(--neon-lime); text-align: center; outline: none; font-family: 'Orbitron'; font-size: 13px; }
+        .submit-btn { width: 100%; background: var(--neon-lime); color: black; font-weight: 900; padding: 16px; border-radius: 15px; text-transform: uppercase; }
+
+        /* Home Style */
+        .banner { background: linear-gradient(to top, rgba(0,0,0,0.8), transparent), url('templates/img_nnt.jpg'); background-size: cover; background-position: center; border-radius: 25px; height: 160px; padding: 20px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.05); }
+        .card { background: #111; border-radius: 15px; padding: 15px; border: 1px solid rgba(255,255,255,0.03); }
+        .fill-lime { background: var(--neon-lime); box-shadow: 0 0 10px var(--neon-lime); }
+        .fill-pink { background: var(--neon-pink); box-shadow: 0 0 10px var(--neon-pink); }
+        .menu-btn { background: #111; border-radius: 15px; padding: 12px 5px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+
+        /* Profile Style */
+        .avatar-box { width: 100px; height: 100px; background: #1a1a1a; border-radius: 30px; margin: 0 auto 15px; border: 2px solid var(--neon-lime); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(163, 255, 0, 0.2); }
+
+        /* Shadow Browser */
+        #poi-browser { position: fixed; inset: 0; background: black; z-index: 5000; display: none; flex-direction: column; }
+
+        /* Bottom Nav */
+        .bottom-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 92%; background: #000; border-radius: 50px; display: none; justify-content: space-around; padding: 18px; border: 1px solid rgba(255,255,255,0.08); z-index: 1000; }
+        .bottom-nav.show { display: flex; }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="templates/bg_music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="poi-browser">
+        <div class="p-4 flex justify-between bg-[#111] border-b border-[#a3ff00]/20">
+            <span class="font-black text-[#a3ff00] uppercase tracking-wider">Shadow Browser</span>
+            <button onclick="closePoi()" class="bg-red-600 px-5 py-1 rounded-full text-[10px] font-black">CLOSE</button>
+        </div>
+        <iframe id="poi-frame" class="w-full h-full border-none"></iframe>
+    </div>
+
+    <div id="login-page" class="page active flex items-center justify-center">
+        <div class="main-card">
+            <img src="templates/profile.jpg" class="w-20 h-20 rounded-full border-2 border-[#a3ff00] mx-auto p-1 object-cover">
+            <h1 class="font-bold text-xl uppercase tracking-widest italic">SHADOW DEATH</h1>
+            <p class="text-[#a3ff00] text-[8px] tracking-[0.4em] font-bold uppercase mt-1">System Access Gateway</p>
+            
+            <div class="video-box">
+                <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-60"><source src="templates/video_nnt.mp4" type="video/mp4"></video>
+            </div>
+
+            <div id="login-form">
+                <input type="text" id="username" placeholder="ENTER USERNAME">
+                <input type="text" id="accesskey" placeholder="ENTER ACCESS KEY">
+                <button onclick="doLogin()" class="submit-btn italic">Verify & Enter</button>
+                <p onclick="alert('Contact @fanzgo for Key')" class="text-[9px] mt-4 text-gray-500 uppercase font-black cursor-pointer">Request Access Key?</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="home-page" class="page">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="font-bold italic text-xl uppercase tracking-tighter">SHADOW <span class="text-[#a3ff00]">DEATH</span></h1>
+            <div class="flex gap-4 items-center"><span class="text-xl">👤</span><span class="text-[#a3ff00] text-xl">☰</span></div>
+        </div>
+
+        <div class="banner mb-6">
+            <span class="bg-[#ff2d55] text-[9px] font-black px-3 py-1 rounded-full w-fit mb-1 uppercase">Welcome</span>
+            <h2 class="font-bold text-2xl italic">DARK ANGEL</h2>
+            <p class="text-[9px] text-gray-400 font-bold uppercase">REAL DEVELOPER @fanzgo</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-8 text-center">
+            <div class="bg-lime-950/20 p-3 rounded-xl border border-[#a3ff00]/10">
+                <p class="text-[8px] text-gray-500 uppercase font-black mb-1">user online</p>
+                <p id="online-count" class="text-2xl font-bold text-[#a3ff00]">26619</p>
+            </div>
+            <div class="bg-pink-950/20 p-3 rounded-xl border border-pink-950">
+                <p class="text-[8px] text-gray-500 uppercase font-black mb-1">sender aktif</p>
+                <p class="text-2xl font-bold text-pink-500">1</p>
+            </div>
+        </div>
+
+        <p class="text-[10px] font-black text-pink-500 mb-3 border-l-4 border-pink-500 pl-3 uppercase">System Performance</p>
+        <div class="card mb-8">
+            <div class="mb-4">
+                <div class="flex justify-between text-[10px] font-bold uppercase mb-1"><span>CPU Usage</span><span class="text-[#a3ff00]">65%</span></div>
+                <div class="h-1.5 bg-zinc-800 rounded-full mt-2"><div class="fill-lime h-full rounded-full" style="width: 65%"></div></div>
+            </div>
+            <div>
+                <div class="flex justify-between text-[10px] font-bold uppercase mb-1"><span>Memory RAM</span><span class="text-pink-500">42%</span></div>
+                <div class="h-1.5 bg-zinc-800 rounded-full mt-2"><div class="fill-pink h-full rounded-full" style="width: 42%"></div></div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-4 gap-2 mb-10">
+            <div class="menu-btn border-[#a3ff00]/30"><p class="text-xl">📶</p><p class="text-[7px] font-black uppercase mt-1">DATA</p></div>
+            <div class="menu-btn border-[#ff2d55]/30" onclick="openPoi()"><p class="text-xl">📹</p><p class="text-[7px] font-black uppercase mt-1">HENTAI</p></div>
+            <div class="menu-btn border-[#ff2d55]/60"><p class="text-xl text-pink-500">🛡️</p><p class="text-[7px] font-black uppercase mt-1 text-pink-500">DDOS</p></div>
+            <div class="menu-btn border-[#ff2d55]/60"><p class="text-xl text-pink-500">📱</p><p class="text-[7px] font-black uppercase mt-1 text-pink-500">SENDERS</p></div>
+        </div>
+    </div>
+
+    <div id="tools-page" class="page">
+        <h2 class="text-[#a3ff00] font-black uppercase tracking-widest mb-6 ml-2 text-xs">Social Media Tools</h2>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="card text-center p-8"><p class="text-3xl mb-2">📥</p><p class="font-bold uppercase text-xs">Downloader</p></div>
+            <div class="card text-center p-8"><p class="text-3xl mb-2">🎬</p><p class="font-bold uppercase text-xs">YouTube</p></div>
+            <div class="card text-center p-8"><p class="text-3xl mb-2">💬</p><p class="font-bold uppercase text-xs">WhatsApp</p></div>
+            <div class="card text-center p-8"><p class="text-3xl mb-2">📸</p><p class="font-bold uppercase text-xs">Instagram</p></div>
+        </div>
+    </div>
+
+    <div id="profile-page" class="page">
+        <div class="flex justify-between items-center mb-8">
+            <span class="text-[#a3ff00] text-2xl">☰</span>
+            <h1 class="text-[#a3ff00] font-bold tracking-[0.2em] uppercase italic">KIEL V1</h1>
+            <span class="text-[#a3ff00]">🔔</span>
+        </div>
+        <div class="bg-[#111] rounded-[40px] p-8 text-center border border-[#a3ff00]/10 mb-8">
+            <div class="avatar-box"><svg class="w-12 h-12 text-gray-600" fill="currentColor" viewBox="0 0 20 20"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"></path></svg></div>
+            <h2 id="prof-user" class="text-2xl font-black uppercase">USER</h2>
+            <span class="bg-[#a3ff00] text-black text-[9px] font-black px-5 py-1 rounded-full uppercase italic">user</span>
+        </div>
+        <div class="card p-6">
+            <div class="flex justify-between text-xs mb-4 text-gray-400 font-bold uppercase"><span>Username</span><span class="text-white" id="val-user">-</span></div>
+            <div class="flex justify-between text-xs mb-4 text-gray-400 font-bold uppercase"><span>Role</span><span class="text-[#a3ff00]">user</span></div>
+            <div class="flex justify-between text-xs text-gray-400 font-bold uppercase"><span>Expires</span><span class="text-yellow-500">29 Hari Lagi</span></div>
+        </div>
+    </div>
+
+    <div id="navbar" class="bottom-nav">
+        <div onclick="showPage('home')" class="flex flex-col items-center"><span class="text-lg">🏠</span><span class="text-[8px] font-bold">HOME</span></div>
+        <div onclick="showPage('tools')" class="flex flex-col items-center"><span class="text-lg text-gray-600">🔧</span><span class="text-[8px] font-bold text-gray-600">TOOLS</span></div>
+        <div onclick="showPage('profile')" class="flex flex-col items-center"><span class="text-lg text-gray-600">👤</span><span class="text-[8px] font-bold text-gray-600">PROFILE</span></div>
+    </div>
+
+    <script>
+        const music = document.getElementById('bgMusic');
+
+        // Fungsi Login
+        function doLogin() {
+            const user = document.getElementById('username').value;
+            const key = document.getElementById('accesskey').value;
+            if(user && key) {
+                document.getElementById('prof-user').innerText = user;
+                document.getElementById('val-user').innerText = user;
+                music.play().catch(() => {});
+                showPage('home');
+                document.getElementById('navbar').classList.add('show');
+            } else {
+                alert("Masukkan Username dan Key!");
+            }
+        }
+
+        // Fungsi Ganti Halaman (SPA)
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId + '-page').classList.add('active');
+            
+            // Update Icon Nav Color
+            const navIcons = document.querySelectorAll('.bottom-nav span');
+            navIcons.forEach(icon => icon.classList.add('text-gray-600'));
+            // (Logika warna icon aktif bisa ditambahin di sini)
+        }
+
+        // Live User Online Animation
+        setInterval(() => {
+            const el = document.getElementById('online-count');
+            let val = parseInt(el.innerText);
+            el.innerText = val + (Math.floor(Math.random() * 3) - 1);
+        }, 2000);
+
+        // Shadow Browser
+        function openPoi() {
+            document.getElementById('poi-frame').src = 'https://nekopoi.care';
+            document.getElementById('poi-browser').style.display = 'flex';
+        }
+        function closePoi() {
+            document.getElementById('poi-browser').style.display = 'none';
+            document.getElementById('poi-frame').src = '';
+        }
+    </script>
+</body>
+</html>
